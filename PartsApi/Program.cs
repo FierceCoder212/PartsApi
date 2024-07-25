@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PartsApi;
+using PartsApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,15 @@ app.UseHttpsRedirection();
 app.MapPost("/AddParts", async (PartsDbContext dbContext, [FromBody] List<Part> parts) =>
 {
     await dbContext.Parts.AddRangeAsync(parts);
+    await dbContext.SaveChangesAsync();
+    return Results.Ok();
+})
+.WithName("AddPart")
+.WithOpenApi();
+
+app.MapPost("/TempAddParts", async (PartsDbContext dbContext, [FromBody] List<TempPart> parts) =>
+{
+    await dbContext.TempParts.AddRangeAsync(parts);
     await dbContext.SaveChangesAsync();
     return Results.Ok();
 })
