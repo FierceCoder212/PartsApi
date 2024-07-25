@@ -10,12 +10,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PartsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PartsDb")));
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
