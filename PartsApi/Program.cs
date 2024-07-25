@@ -30,7 +30,7 @@ app.MapPost("/TempAddParts", async (PartsDbContext dbContext, [FromBody] List<Te
     await dbContext.SaveChangesAsync();
     return Results.Ok();
 })
-.WithName("AddPart")
+.WithName("TempAddParts")
 .WithOpenApi();
 
 app.Run();
