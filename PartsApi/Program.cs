@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<PartsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PartsDb")));
+builder.Services.AddDbContext<PartsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PartsDb"), options => options.CommandTimeout(300)));
 var app = builder.Build();
 
 app.UseSwagger();
