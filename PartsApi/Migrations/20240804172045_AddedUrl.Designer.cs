@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartsApi;
 
@@ -10,9 +11,11 @@ using PartsApi;
 namespace PartsApi.Migrations
 {
     [DbContext(typeof(PartsDbContext))]
-    partial class PartsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240804172045_AddedUrl")]
+    partial class AddedUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

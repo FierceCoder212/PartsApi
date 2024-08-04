@@ -12,5 +12,6 @@ public class TempPart
     public string? ItemNumber { get; set; }
     public string? Description { get; set; }
     public string? SectonDiagram { get; set; }
+    public string? SectonDiagramUrl { get; set; }
     public required string ScraperName { get; set; } = string.Empty;
 }
