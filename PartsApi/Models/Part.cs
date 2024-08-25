@@ -7,6 +7,8 @@ public class Part
     [Key]
     public int Id { get; set; }
     public string? SglUniqueModelCode { get; set; }
+    public string? SGLDescription { get; set; }
+    public string? SGLSection { get; set; }
     public string? Section { get; set; }
     public string? PartNumber { get; set; }
     public string? ItemNumber { get; set; }

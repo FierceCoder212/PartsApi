@@ -33,4 +33,42 @@ app.MapPost("/TempAddParts", async (PartsDbContext dbContext, [FromBody] List<Te
 .WithName("TempAddParts")
 .WithOpenApi();
 
+app.MapPost("/ResolveSpaces", async (PartsDbContext dbContext) =>
+{
+    int batchSize = 10000;
+    int skip = 0;
+    List<Part> parts;
+    var totalCount = await dbContext.Parts
+                               .Where(x => x.Description.Contains("  This part replaces"))
+                               .OrderBy(x => x.Id)
+                               .CountAsync();
+    Console.WriteLine($"Total Count {totalCount}");
+    do
+    {
+        parts = await dbContext.Parts
+                               .Where(x => x.Description.Contains("  This part replaces"))
+                               .OrderBy(x => x.Id)
+                               .Skip(skip)
+                               .Take(batchSize)
+                               .ToListAsync();
+
+        foreach (var part in parts)
+        {
+            part.Description = string.Join(' ', part.Description.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                                                                 .Select(x => x.Trim())
+                                                                 .Where(x => !string.IsNullOrEmpty(x)));
+        }
+
+        dbContext.UpdateRange(parts);
+        await dbContext.SaveChangesAsync();
+
+        skip += batchSize;
+        Console.WriteLine($"Total Processed {skip}");
+    } while (parts.Count > 0);
+
+    return Results.Ok();
+})
+.WithName("ResolveSpaces")
+.WithOpenApi();
+
 app.Run();
