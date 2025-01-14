@@ -59,7 +59,7 @@ namespace PartsApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Parts");
+                    b.ToTable("Parts", (string)null);
                 });
 
             modelBuilder.Entity("PartsApi.Models.TempPart", b =>
@@ -97,7 +97,7 @@ namespace PartsApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TempParts");
+                    b.ToTable("TempParts", (string)null);
                 });
 #pragma warning restore 612, 618
         }
